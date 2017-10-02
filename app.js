@@ -1,14 +1,48 @@
+var rp = require('request-promise');
+
 module.exports = {
 
-    sayHello: (req, res, next) => {
+    showLatest: (req, res, next) => {
 
-        var obj = {
-            status: 200,
-            msg: 'hello ' + req.params.name
-        };
+        rp('http://api.fixer.io/latest')
+            .then(body => {
+                res.send(JSON.parse(body));
+                next();
+            })
+            .catch(err => {
+                res.send({
+                    status: 500,
+                    message: 'Something strange happened'
+                });
+                next();
+            });        
+    },
 
-        res.send(obj);
-        next();
+
+    fixer: (req, res, next) => {
+
+        var query = req.getQuery();
+
+        var value = query.value;
+        var from = query.from;
+        var to = query.to;
+        var uri = 'http://api.fixer.io/latest?base=' + from + '&symbols=' + to;
+
+        rp(uri)
+        .then(body => {
+            res.send(JSON.parse(body));
+            next();
+        })
+        .catch(err => {
+            
+            console.log(query);
+
+            res.send({
+                status: 500,
+                message: 'Something strange happened'
+            });
+            next();
+        });
     }
 
 }

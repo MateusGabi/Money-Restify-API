@@ -1,10 +1,20 @@
 var restify = require('restify');
 var app = require('./app.js');
 
-var server = restify.createServer();
-server.get('/hello/:name', app.sayHello);
-server.head('/hello/:name', app.sayHello);
 
+/*---- INITIALIZE THE SERVER ONE ----*/
+var server = restify.createServer({
+    name: 'Restify Server Test'
+});
+
+server.use(restify.plugins.queryParser());
+
+/*---- SERVER ROUTES ----*/
+server.get('/', app.showLatest);
+server.get('/go', app.fixer);
+
+
+/*---- LISTENING ----*/
 server.listen(8080, function() {
-  console.log('%s listening at %s', server.name, server.url);
+  console.log('%s listening at %s', server.name, server.version, server.url);
 });
