@@ -21,16 +21,36 @@ module.exports = {
 
     fixer: (req, res, next) => {
 
-        var query = req.getQuery();
+        var query = req.query   ;
 
-        var value = query.value;
-        var from = query.from;
-        var to = query.to;
+        var value = query.value || 0;
+        var from = query.from || 'BRL';
+        var to = query.to || 'USD';
         var uri = 'http://api.fixer.io/latest?base=' + from + '&symbols=' + to;
 
         rp(uri)
         .then(body => {
-            res.send(JSON.parse(body));
+
+            var objResponse = JSON.parse(body);
+
+            var rate = objResponse.rates[to];
+
+            var val = value * rate;
+
+            //---- rounding value to a decimal
+            val = val * 100;
+            val = Math.round(val);
+            val = val / 100;
+
+
+            var obj = {
+                'value': val,
+                'rate': rate,
+                'fixer': objResponse
+            };
+
+            res.send(obj);
+
             next();
         })
         .catch(err => {

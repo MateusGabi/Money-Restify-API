@@ -7,6 +7,7 @@ var server = restify.createServer({
     name: 'Restify Server Test'
 });
 
+server.use(restify.plugins.acceptParser(server.acceptable));
 server.use(restify.plugins.queryParser());
 
 /*---- SERVER ROUTES ----*/
