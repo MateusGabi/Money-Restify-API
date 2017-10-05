@@ -62,18 +62,12 @@ You can install a global dependency called json.
 
 ### Example 2
 
-`curl -isS https://mgm-currency-converter.herokuapp.com/go?value=123.45&from=BRL&to=USD`
+`curl -isS http://127.0.0.1:8080/go?value=123.45&from=BRL&to=USD`
 
 ```
 {
-  "value": 39.42,
-  "rate": 0.31932,
-  "fixer": {
-    "base": "USD",
-    "date": "2017-10-05",
-    "rates": {
-      "BRL": 0.31932
-    }
-  }
+    "value": 39.42,
+    "rate": 0.31932,
+    "updated_in": "2017-10-05"
 }
 ```
