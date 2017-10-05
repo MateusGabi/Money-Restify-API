@@ -1,0 +1,16 @@
+config:
+  target: 'http://localhost:8080'
+  phases:
+    - duration: 60
+      arrivalRate: 20
+scenarios:
+  -
+    name: 'Home'
+    flow:
+    - get:
+        url: "/"
+  -
+    name: 'Convert'
+    flow:
+    - get:
+        url: '/go?value=123.45&from=BRL&to=USD'
