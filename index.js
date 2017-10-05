@@ -1,5 +1,5 @@
 var restify = require('restify');
-var app = require('./app.js');
+var app = require('./src/app.js');
 
 
 /*---- INITIALIZE THE SERVER ONE ----*/

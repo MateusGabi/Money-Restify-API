@@ -21,12 +21,12 @@ module.exports = {
 
     fixer: (req, res, next) => {
 
-        var query = req.query   ;
+        var query = req.query;
 
         var value = query.value || 0;
         var from = query.from || 'BRL';
         var to = query.to || 'USD';
-        var uri = 'http://api.fixer.io/latest?base=' + from + '&symbols=' + to;
+        var uri = 'http://api.fixer.io/latest?base=' + from;
 
         rp(uri)
         .then(body => {
@@ -35,19 +35,32 @@ module.exports = {
 
             var rate = objResponse.rates[to];
 
-            var val = value * rate;
+            var obj = {};
+        
 
-            //---- rounding value to a decimal
-            val = val * 100;
-            val = Math.round(val);
-            val = val / 100;
+            if(rate) {
+
+                var val = value * rate;
+
+                //---- rounding value to a decimal
+                val = val * 100;
+                val = Math.round(val);
+                val = val / 100;
 
 
-            var obj = {
-                'value': val,
-                'rate': rate,
-                'fixer': objResponse
-            };
+                obj = {
+                    'value': val,
+                    'rate': rate,
+                    'updated_in': objResponse.date
+                };
+            }
+            else {
+                obj = {
+                    message : 'Currency is not avaible.'
+                };
+
+                res.status(500);
+            }
 
             res.send(obj);
 
@@ -57,9 +70,8 @@ module.exports = {
             
             console.log(query);
 
-            res.send({
-                status: 500,
-                message: 'Something strange happened'
+            res.send(500, {
+                message: 'Currency is not avaible.'
             });
             next();
         });
