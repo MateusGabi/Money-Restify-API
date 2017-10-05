@@ -17,5 +17,5 @@ server.get('/go', app.fixer);
 
 /*---- LISTENING ----*/
 server.listen(process.env.PORT || 8080, function() {
-  console.log('%s listening at %s', server.name, server.version, server.url);
+  console.log('%s listening at %s', server.name, server.url);
 });
