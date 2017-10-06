@@ -6,10 +6,14 @@ module.exports = {
 
         rp('http://api.fixer.io/latest')
             .then(body => {
+                
+                res.header('Access-Control-Allow-Origin', '*');
                 res.send(JSON.parse(body));
                 next();
             })
             .catch(err => {
+                
+                res.header('Access-Control-Allow-Origin', '*');
                 res.send({
                     status: 500,
                     message: 'Something strange happened'
@@ -62,6 +66,7 @@ module.exports = {
                 res.status(500);
             }
 
+            res.header('Access-Control-Allow-Origin', '*');
             res.send(obj);
 
             next();
@@ -70,6 +75,8 @@ module.exports = {
             
             console.log(query);
 
+
+            res.header('Access-Control-Allow-Origin', '*');
             res.send(500, {
                 message: 'Currency is not avaible.'
             });
