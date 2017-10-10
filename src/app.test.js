@@ -16,3 +16,7 @@ test('route /', () => {
             expect(body).toBeDefined();
         });
 });
+
+test('forcing error', () => {
+    expect(true).toBe(false);
+});
