@@ -1,5 +1,18 @@
-const sum = require('./app');
+const app = require('./app');
+var request = require('request-promise');
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(1 + 2).toBe(3);
+let PORT = process.env.PORT || 8080;
+let API_URI = 'http://localhost:' + PORT;
+
+test('checking API PORT ', () => {
+
+    expect(8080).toBe(PORT);
+
+});
+
+test('route /', () => {
+    request(API_URI)
+        .then((body) => {
+            expect(body).toBeDefined();
+        });
 });
