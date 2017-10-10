@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "start": "node ./index.js",
-    "test:load": "artillery run artillery.yml"
+    "test:load": "artillery run artillery.yml",
+    "heroku-prebuild": "npm run test"
   },
   "repository": {
     "type": "git",
