@@ -73,9 +73,6 @@ module.exports = {
         })
         .catch(err => {
             
-            console.log(query);
-
-
             res.header('Access-Control-Allow-Origin', '*');
             res.send(500, {
                 message: 'Currency is not avaible.'
