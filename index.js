@@ -14,6 +14,7 @@ server.use(restify.plugins.queryParser());
 /*---- SERVER ROUTES ----*/
 server.get('/', app.fixer);
 server.get('/go', app.fixer);
+server.get('/', app.fixer);
 
 
 /*---- LISTENING ----*/
