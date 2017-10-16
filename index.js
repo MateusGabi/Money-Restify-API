@@ -12,7 +12,7 @@ server.use(restify.plugins.acceptParser(server.acceptable));
 server.use(restify.plugins.queryParser());
 
 /*---- SERVER ROUTES ----*/
-server.get('/', app.showLatest);
+server.get('/', app.fixer);
 server.get('/go', app.fixer);
 
 
